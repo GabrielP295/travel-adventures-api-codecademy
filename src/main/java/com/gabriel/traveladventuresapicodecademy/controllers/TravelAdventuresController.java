@@ -25,4 +25,9 @@ public class TravelAdventuresController {
     public List<Adventure> getAdventuresByCountry(@PathVariable String country) {
         return this.adventureRepository.findByCountry(country);
     }
+
+    @GetMapping("/bystate")
+    public List<Adventure> getAdventuresByState(@RequestParam String state) {
+        return this.adventureRepository.findByState(state);
+    }
 }
