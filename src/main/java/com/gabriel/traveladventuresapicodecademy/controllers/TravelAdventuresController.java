@@ -51,4 +51,10 @@ public class TravelAdventuresController {
         adventureToUpdate.get().setBlogCompleted(adventure.getBlogCompleted());
         return adventureRepository.save(adventureToUpdate.get());
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAdventure(@PathVariable int id) {
+        adventureRepository.deleteById(id);
+    }
 }
