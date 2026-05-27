@@ -4,8 +4,10 @@ import com.gabriel.traveladventuresapicodecademy.entities.Adventure;
 import com.gabriel.traveladventuresapicodecademy.repositories.AdventureRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("traveladventures")
@@ -36,5 +38,17 @@ public class TravelAdventuresController {
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure addAdventure(@RequestBody Adventure adventure) {
         return this.adventureRepository.save(adventure);
+    }
+
+    @PutMapping("/{id}")
+    public Adventure updateAdventure(@RequestBody Adventure adventure,
+                                @PathVariable int id) {
+        Optional<Adventure> adventureToUpdate = adventureRepository.findById(id);
+        if (!adventureToUpdate.isPresent()) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "ID not found."
+        );
+
+        adventureToUpdate.get().setBlogCompleted(adventure.getBlogCompleted());
+        return adventureRepository.save(adventureToUpdate.get());
     }
 }
