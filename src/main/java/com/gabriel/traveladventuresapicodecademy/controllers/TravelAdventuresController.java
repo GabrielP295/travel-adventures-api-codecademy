@@ -2,6 +2,7 @@ package com.gabriel.traveladventuresapicodecademy.controllers;
 
 import com.gabriel.traveladventuresapicodecademy.entities.Adventure;
 import com.gabriel.traveladventuresapicodecademy.repositories.AdventureRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,5 +30,11 @@ public class TravelAdventuresController {
     @GetMapping("/bystate")
     public List<Adventure> getAdventuresByState(@RequestParam String state) {
         return this.adventureRepository.findByState(state);
+    }
+
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public Adventure addAdventure(@RequestBody Adventure adventure) {
+        return this.adventureRepository.save(adventure);
     }
 }
