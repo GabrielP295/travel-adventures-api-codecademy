@@ -64,4 +64,28 @@ public class Adventure {
     public void setBlogCompleted(Boolean blogCompleted) {
         this.blogCompleted = blogCompleted;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setNumPhotos(Long numPhotos) {
+        this.numPhotos = numPhotos;
+    }
 }
