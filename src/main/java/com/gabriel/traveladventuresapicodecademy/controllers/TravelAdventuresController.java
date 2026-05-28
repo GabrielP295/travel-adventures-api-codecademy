@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("traveladventures")
@@ -52,14 +51,12 @@ public class TravelAdventuresController {
     @PutMapping("/{id}")
     public Adventure updateAdventure(@RequestBody Adventure adventure,
                                      @PathVariable int id) {
-        Optional<Adventure> adventureToUpdate = adventureRepository.findById(id);
-        if (!adventureToUpdate.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID not found.");
-        }
+        Adventure adventureToUpdate = adventureRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "ID not found.")
+        );
 
-        Adventure currentAdventure = adventureToUpdate.get();
-        currentAdventure.setBlogCompleted(adventure.getBlogCompleted());
-        return adventureRepository.save(currentAdventure);
+        adventureToUpdate.setBlogCompleted(adventure.getBlogCompleted());
+        return adventureRepository.save(adventureToUpdate);
     }
 
     @DeleteMapping("/{id}")
