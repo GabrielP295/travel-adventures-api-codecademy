@@ -9,47 +9,49 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-@RestController()
+@RestController
 @RequestMapping("traveladventures")
 public class TravelAdventuresController {
 
     private final AdventureRepository adventureRepository;
 
     public TravelAdventuresController(AdventureRepository adventureRepo) {
-        this.adventureRepository = adventureRepo;
+        adventureRepository = adventureRepo;
     }
 
     @GetMapping()
     public Iterable<Adventure> getAdventures() {
-        return this.adventureRepository.findAll();
+        return adventureRepository.findAll();
     }
 
     @GetMapping("/bycountry/{country}")
     public List<Adventure> getAdventuresByCountry(@PathVariable String country) {
-        return this.adventureRepository.findByCountry(country);
+        return adventureRepository.findByCountry(country);
     }
 
     @GetMapping("/bystate")
     public List<Adventure> getAdventuresByState(@RequestParam String state) {
-        return this.adventureRepository.findByState(state);
+        return adventureRepository.findByState(state);
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure addAdventure(@RequestBody Adventure adventure) {
-        return this.adventureRepository.save(adventure);
+        return adventureRepository.save(adventure);
     }
 
     @PutMapping("/{id}")
-    public Adventure updateAdventure(@RequestBody Adventure adventure,
-                                @PathVariable int id) {
+    public Adventure updateAdventure(
+            @RequestBody Adventure adventure,
+            @PathVariable int id) {
         Optional<Adventure> adventureToUpdate = adventureRepository.findById(id);
-        if (!adventureToUpdate.isPresent()) throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "ID not found."
-        );
+        if (!adventureToUpdate.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID not found.");
+        }
 
-        adventureToUpdate.get().setBlogCompleted(adventure.getBlogCompleted());
-        return adventureRepository.save(adventureToUpdate.get());
+        Adventure currentAdventure = adventureToUpdate.get();
+        currentAdventure.setBlogCompleted(adventure.getBlogCompleted());
+        return adventureRepository.save(currentAdventure);
     }
 
     @DeleteMapping("/{id}")
