@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +45,7 @@ public class TravelAdventuresController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Adventure addAdventure(@RequestBody Adventure adventure) {
+    public Adventure addAdventure(@Valid @RequestBody Adventure adventure) {
         if (adventure.getId() == null) {
             return adventureRepository.save(adventure);
         }
@@ -57,7 +58,7 @@ public class TravelAdventuresController {
     }
 
     @PutMapping("/{id}")
-    public Adventure updateAdventure(@RequestBody Adventure adventure,
+    public Adventure updateAdventure(@Valid @RequestBody Adventure adventure,
                                      @PathVariable int id) {
         Adventure adventureToUpdate = adventureRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "ID not found.")

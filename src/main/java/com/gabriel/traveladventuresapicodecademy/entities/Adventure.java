@@ -6,6 +6,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "ADVENTURES")
@@ -15,21 +19,28 @@ public class Adventure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
+    @Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}", message = "date must be in MM/dd/yyyy format")
     @Column(name = "DATE")
     private String date;
 
+    @NotBlank
     @Column(name = "COUNTRY")
     private String country;
 
+    @NotBlank
     @Column(name = "CITY")
     private String city;
 
     @Column(name = "STATE")
     private String state;
 
+    @NotNull
+    @Min(value = 0, message = "numPhotos must be 0 or greater")
     @Column(name = "NUM_PHOTOS")
     private Long numPhotos;
 
+    @NotNull
     @Column(name = "BLOG_COMPLETED")
     private Boolean blogCompleted;
 
