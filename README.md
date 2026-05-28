@@ -1,6 +1,6 @@
 # Travel Adventures API
 
-A RESTful API for logging and managing travel adventures, built with Spring Boot. This project was completed as part of the [Codecademy Learn Spring](https://www.codecademy.com/learn/learn-spring) course — the final hands-on exercise after working through the Spring Boot lessons.
+A RESTful API for logging and managing travel adventures, built with Spring Boot. This project was completed as part of the [Codecademy Learn Spring](https://www.codecademy.com/learn/learn-spring) course. The final hands-on exercise after working through the Spring Controllers section.
 
 ## What It Does
 
