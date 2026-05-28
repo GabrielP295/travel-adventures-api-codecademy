@@ -1,10 +1,9 @@
 package com.gabriel.traveladventuresapicodecademy.repositories;
 
-import java.util.List;
-
+import com.gabriel.traveladventuresapicodecademy.entities.Adventure;
 import org.springframework.data.repository.CrudRepository;
 
-import com.gabriel.traveladventuresapicodecademy.entities.Adventure;
+import java.util.List;
 
 public interface AdventureRepository extends CrudRepository<Adventure, Integer> {
     public List<Adventure> findByCountry(String country);

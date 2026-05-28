@@ -45,6 +45,14 @@ public class TravelAdventuresController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Adventure addAdventure(@RequestBody Adventure adventure) {
+        if (adventure.getId() == null) {
+            return adventureRepository.save(adventure);
+        }
+
+        if (adventureRepository.existsById(adventure.getId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Adventure already exists.");
+        }
+
         return adventureRepository.save(adventure);
     }
 
